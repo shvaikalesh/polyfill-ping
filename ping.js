@@ -2,9 +2,8 @@
 {
     "use strict"
 
-    if ("ping" in HTMLAnchorElement.prototype)
-        if (!navigator.userAgent.includes("Firefox"))
-            return module.exports = Function.prototype
+    if (/webkit/i.test(navigator.userAgent))
+        return module.exports = Object
 
     var ELEMENTS =
     [
