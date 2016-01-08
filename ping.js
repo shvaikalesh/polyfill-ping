@@ -21,8 +21,15 @@
 
         function resolve(url)
         {
-            try { return new URL(url, location) }
-            catch (error) { return "" }
+            try
+            {
+                if (typeof url == "string")
+                    return new URL(url, location)
+            }
+            finally
+            {
+                return ""
+            }
         }
 
         document.addEventListener("click", function(event)
@@ -30,10 +37,10 @@
             if (event.defaultPrevented) return
 
             var $link = event.target.closest("a, area")
-            if ($link == null || $link.href == "") return
+            if ($link == null) return
 
-            var href = $link.getAttribute("href")
-            if (!resolve(href)) return
+            var href = resolve($link.getAttribute("href"))
+            if (href == "") return
 
             var ping = $link.ping
                 .trim()
