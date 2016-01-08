@@ -6,7 +6,7 @@
         if (!navigator.userAgent.includes("Firefox"))
             return module.exports = Function.prototype
 
-    var INTERFACES =
+    var ELEMENTS =
     [
         , "HTMLAnchorElement"
         , "HTMLAreaElement"
@@ -14,17 +14,17 @@
 
     function polyfill(global)
     {
-        var $document = global.document
+        var document = global.document
           , location = global.location
           , fetch = global.fetch
 
-        function _resolve(url)
+        function resolve(url)
         {
             try { return new URL(url, location) }
             catch (error) { return "" }
         }
 
-        $document.addEventListener("click", function(event)
+        document.addEventListener("click", function(event)
         {
             if (event.defaultPrevented) return
 
@@ -32,12 +32,12 @@
             if ($link == null || $link.href == "") return
 
             var href = $link.getAttribute("href")
-            if (!_resolve(href)) return
+            if (!resolve(href)) return
 
             var ping = $link.ping
                 .trim()
                 .split(/\s+/)
-                .map(_resolve)
+                .map(resolve)
                 .filter(String)
 
             ping.forEach(function(url)
@@ -50,9 +50,9 @@
             })
         })
 
-        INTERFACES.forEach(function(interface)
+        ELEMENTS.forEach(function(element)
         {
-            var prototype = global[interface].prototype
+            var prototype = global[element].prototype
 
             Object.defineProperty(prototype, "ping",
             {
