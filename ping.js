@@ -21,15 +21,13 @@
 
         function resolve(url)
         {
-            try
+            if (typeof url == "string")
             {
-                if (typeof url == "string")
-                    return new URL(url, location)
+                try { return new URL(url, location) }
+                finally { }
             }
-            finally
-            {
-                return ""
-            }
+
+            return ""
         }
 
         document.addEventListener("click", function(event)
