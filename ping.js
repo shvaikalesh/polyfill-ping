@@ -16,6 +16,7 @@
     {
         var document = global.document
           , location = global.location
+          , secure = location.protocol == "https:"
           , fetch = global.fetch
 
         function resolve(url)
@@ -42,11 +43,23 @@
 
             ping.forEach(function(url)
             {
-                fetch(url,
+                var options =
                 {
                     method: "POST",
-                    body: "PING"
-                })
+                    headers:
+                    {
+                        "Ping-From": location,
+                        "Ping-To": href
+                    },
+                    referrer: "no-referrer",
+                    body: "PING",
+                }
+
+                if (url.origin != location.origin)
+                    if (secure) options.referrer = location
+                    else delete options.headers["Ping-From"]
+
+                fetch(url, options)
             })
         })
 
