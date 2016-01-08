@@ -59,7 +59,7 @@
                         "Ping-To": href
                     },
                     referrer: "no-referrer",
-                    body: "PING",
+                    body: "PING"
                 }
 
                 if (url.origin != location.origin)
@@ -88,9 +88,11 @@
                 configurable: true
             })
         })
+
+        return global
     }
 
     module.exports =
-        polyfill(window),
+        polyfill(window) &&
         polyfill
 })()
