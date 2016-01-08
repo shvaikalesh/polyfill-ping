@@ -58,7 +58,7 @@
             {
                 get: function()
                 {
-                    return this.getAttribute("ping")
+                    return this.getAttribute("ping") || ""
                 },
                 set: function(value)
                 {
