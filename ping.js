@@ -16,7 +16,6 @@
         var document = global.document
           , location = global.location
           , secure = location.protocol == "https:"
-          , fetch = global.fetch
 
         function resolve(url)
         {
@@ -63,7 +62,7 @@
                     if (secure) options.referrer = location
                     else delete options.headers["Ping-From"]
 
-                fetch(url, options)
+                global.fetch(url, options)
             })
         })
 
