@@ -4,11 +4,8 @@
 
     if (/webkit/i.test(navigator.userAgent)) return
 
-    var ELEMENTS =
-    [
-        , "HTMLAnchorElement"
-        , "HTMLAreaElement"
-    ]
+    var reflect = require("reflect-attributes")
+        reflect("ping", [ "a", "area" ])
 
     {
           , secure = location.protocol == "https:"
@@ -61,24 +58,10 @@
             })
         })
 
-        ELEMENTS.forEach(function(element)
         {
-            var prototype = global[element].prototype
-
-            Object.defineProperty(prototype, "ping",
             {
-                get: function()
                 {
-                    return this.getAttribute("ping") || ""
                 },
-                set: function(value)
-                {
-                    this.setAttribute("ping", value)
-                },
-                enumerable: true,
-                configurable: true
-            })
-        })
 
 
             fetch(url, options)
