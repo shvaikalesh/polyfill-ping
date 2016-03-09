@@ -2,8 +2,7 @@
 {
     "use strict"
 
-    if (/webkit/i.test(navigator.userAgent))
-        return module.exports = Object
+    if (/webkit/i.test(navigator.userAgent)) return
 
     var ELEMENTS =
     [
@@ -11,10 +10,7 @@
         , "HTMLAreaElement"
     ]
 
-    function polyfill(global)
     {
-        var document = global.document
-          , location = global.location
           , secure = location.protocol == "https:"
 
         function resolve(url)
@@ -62,7 +58,6 @@
                     if (secure) options.referrer = location
                     else delete options.headers["Ping-From"]
 
-                global.fetch(url, options)
             })
         })
 
@@ -85,10 +80,6 @@
             })
         })
 
-        return global
-    }
 
-    module.exports =
-        polyfill(window) &&
-        polyfill
+            fetch(url, options)
 })()
